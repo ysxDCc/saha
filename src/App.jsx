@@ -4,15 +4,6 @@ import { Instagram, MapPin, Clock, Phone, ChevronDown, Menu, X, Wine } from "luc
 
 /* ---------------------------------------------------------
    SAHA BAR — Zlaté Moravce
-   Design tokens
-   bg-void      #0A0806
-   bg-charcoal  #14100C
-   ink          #F3E9DA
-   ink-dim      #B7A98E
-   amber        #C98A3E
-   amber-bright #EFAE55
-   neon-coral   #FF6B4D
-   line         rgba(201,138,62,0.22)
 --------------------------------------------------------- */
 
 const FONT_IMPORT = `
@@ -107,7 +98,7 @@ function NavBar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const links = [
+  const navLinks = [
     { label: "Signature", href: "#signature" },
     { label: "Menu", href: "#menu" },
     { label: "Events", href: "#events" },
@@ -129,13 +120,13 @@ function NavBar() {
           </a>
 
           <nav className="hidden md:flex items-center gap-10" style={{ fontFamily: "Manrope, sans-serif" }}>
-            {links.map((l) => (
+            {navLinks.map((navLink) => (
               
-                key={l.href}
-                href={l.href}
+                key={navLink.href}
+                href={navLink.href}
                 className="text-[13px] uppercase tracking-[0.18em] text-[#B7A98E] hover:text-[#EFAE55] transition-colors duration-300"
               >
-                {l.label}
+                {navLink.label}
               </a>
             ))}
           </nav>
@@ -169,15 +160,15 @@ function NavBar() {
             >
               <X size={26} />
             </button>
-            {links.map((l) => (
+            {navLinks.map((navLink) => (
               
-                key={l.href}
-                href={l.href}
+                key={navLink.href}
+                href={navLink.href}
                 onClick={() => setOpen(false)}
                 className="text-2xl uppercase tracking-[0.2em] text-[#F3E9DA]"
                 style={{ fontFamily: "Fraunces, serif" }}
               >
-                {l.label}
+                {navLink.label}
               </a>
             ))}
           </motion.div>
@@ -195,7 +186,6 @@ function Hero() {
 
   return (
     <section id="top" ref={ref} className="relative h-screen min-h-[680px] w-full overflow-hidden bg-[#0A0806]">
-      {/* atmosphere */}
       <div className="absolute inset-0">
         <div
           className="absolute inset-0"
@@ -204,7 +194,6 @@ function Hero() {
               "radial-gradient(ellipse 60% 50% at 50% 20%, rgba(201,138,62,0.16), transparent 60%), radial-gradient(ellipse 40% 40% at 80% 70%, rgba(255,107,77,0.10), transparent 60%), radial-gradient(ellipse 50% 50% at 15% 80%, rgba(201,138,62,0.10), transparent 60%), #0A0806",
           }}
         />
-        {/* bar silhouette shapes: glassware suggestion via soft blurred circles */}
         <div className="absolute bottom-0 left-0 right-0 h-1/2" style={{
           background: "linear-gradient(to top, #0A0806 10%, transparent 100%)"
         }} />
@@ -360,7 +349,6 @@ function Signature() {
               className="absolute inset-0 rounded-[2rem] blur-3xl opacity-60"
               style={{ background: "radial-gradient(circle, rgba(255,107,77,0.35), transparent 70%)" }}
             />
-            {/* stylised glass */}
             <svg viewBox="0 0 200 320" className="relative w-full h-full drop-shadow-[0_0_40px_rgba(255,107,77,0.25)]">
               <defs>
                 <linearGradient id="liquid" x1="0" y1="0" x2="0" y2="1">
