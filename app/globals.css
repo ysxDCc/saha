@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+* {
+  border-color: rgba(0, 255, 200, 0.1);
+}
+
+body {
+  background: #030504;
+  color: #e0f7ec;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: #d4ffea;
+}
+
+::selection {
+  background: #00ffaa;
+  color: #000;
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(10, 40, 30, 0.15);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(0, 255, 200, 0.15);
+  border-radius: 2.5rem;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0,255,200,0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.glass-card:hover {
+  border-color: rgba(0, 255, 200, 0.6);
+  box-shadow: 0 0 50px rgba(0,255,200,0.2), 0 0 100px rgba(120,0,255,0.15);
+  transform: translateY(-4px);
+}
+
+/* Magnetic button */
+.btn-magnetic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2.5rem;
+  border: 2px solid #00ffaa;
+  color: #00ffaa;
+  background: transparent;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 50px;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.btn-magnetic:hover {
+  background: #00ffaa;
+  color: #000;
+  box-shadow: 0 0 40px #00ffaa, 0 0 80px #00ffaa;
+  transform: scale(1.05);
+}
+
+.btn-magnetic span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-magnetic .arrow {
+  transition: transform 0.3s;
+}
+
+.btn-magnetic:hover .arrow {
+  transform: translateX(6px);
+}
+
+/* Liquid image effect */
+.liquid-img {
+  transition: filter 0.8s ease, transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  filter: brightness(0.8) contrast(1.2) saturate(0.9);
+}
+
+.liquid-img:hover {
+  filter: brightness(1.1) contrast(1.1) saturate(1.2) url(#liquid);
+  transform: scale(1.03);
+}
+
+/* Scroll progress */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00ffaa, #aa00ff);
+  z-index: 9999;
+  width: 0%;
+}
+
+/* Text scramble */
+.scramble span {
+  color: #00ffaa;
+}
+
+/* Float */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+.floating {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* Glow burst */
+.glow-burst {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, #00ffaa44, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.group:hover .glow-burst {
+  opacity: 1;
+}
+
+/* Staggered fade-up */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.stagger-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
