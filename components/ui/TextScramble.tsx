@@ -45,7 +45,6 @@ const TextScramble: React.FC<Props> = ({ text, className = '' }) => {
     };
 
     const start = () => {
-      const length = Math.max(text.length, 1);
       queue.push({
         from: '',
         to: text,
