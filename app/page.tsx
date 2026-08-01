@@ -12,8 +12,7 @@ export default function Home() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const heroRef = useRef(null);
   const specialRef = useRef(null);
-  const statsRef = useRef(null);
-  
+
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
   const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.85]);
   const heroY = useTransform(scrollYProgress, [0, 0.5], [0, 60]);
@@ -41,23 +40,6 @@ export default function Home() {
     return () => window.removeEventListener('mousemove', move);
   }, []);
 
-  // Stagger observer
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    document.querySelectorAll('.stagger-item').forEach(el => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
   const stats = [
     { end: 500, suffix: '+', label: 'Spokojných hostí' },
     { end: 50, suffix: '+', label: 'Remeselných drinkov' },
@@ -74,7 +56,6 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#030504] via-[#030504]/60 to-transparent" />
         </motion.div>
 
-        {/* Floating decorative orbs */}
         <motion.div
           className="absolute top-20 left-10 w-80 h-80 rounded-full bg-[#00ffaa]/5 blur-3xl"
           animate={{ x: [0, 30, -20, 0], y: [0, -40, 20, 0] }}
@@ -186,8 +167,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* STATS WITH COUNTERS */}
-      <section ref={statsRef} className="py-28 px-6">
+      {/* STATS */}
+      <section className="py-28 px-6">
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-10">
           {stats.map((stat, i) => (
             <motion.div
@@ -262,16 +243,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SPECIAL */}
+      {/* SPECIAL – now fully responsive */}
       <section ref={specialRef} className="py-28 px-6 overflow-hidden">
         <motion.div
           style={{ scale: specialScale, opacity: specialOpacity }}
-          className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center"
+          className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center"
         >
           <div>
             <p className="text-[#aa00ff] font-bold text-xs tracking-widest mb-4 stagger-item">ŠPECIÁL MESIACA</p>
             <motion.h2
-              className="text-6xl md:text-8xl font-black text-white mb-6 stagger-item"
+              className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 stagger-item leading-[1.1]"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -279,7 +260,9 @@ export default function Home() {
             >
               {SPECIAL_OF_MONTH.name}
             </motion.h2>
-            <p className="text-gray-300 text-lg mb-8 stagger-item">{SPECIAL_OF_MONTH.description}</p>
+            <p className="text-gray-300 text-base md:text-lg mb-8 stagger-item leading-relaxed">
+              {SPECIAL_OF_MONTH.description}
+            </p>
             <MagneticButton href="/menu" className="group">
               <span>Detail</span>
               <span className="arrow ml-2">→</span>
@@ -287,7 +270,7 @@ export default function Home() {
             </MagneticButton>
           </div>
           <motion.div
-            className="glass-card h-[500px] overflow-hidden"
+            className="glass-card overflow-hidden w-full aspect-[4/5] md:aspect-[4/3] lg:h-[500px] lg:aspect-auto"
             whileHover={{ scale: 1.02 }}
             style={{
               transform: `perspective(1200px) rotateY(${mousePos.x * 0.03}deg)`,
