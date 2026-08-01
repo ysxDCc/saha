@@ -14,7 +14,7 @@ const TextScramble: React.FC<Props> = ({ text, className = '' }) => {
 
   useEffect(() => {
     let frame = 0;
-    let resolve: () => void;
+    let resolveFunc: (() => void) | null = null;
     const queue: { from: string; to: string; start: number; end: number; char?: string }[] = [];
 
     const update = () => {
@@ -37,7 +37,7 @@ const TextScramble: React.FC<Props> = ({ text, className = '' }) => {
       }
       setDisplay(output);
       if (complete === queue.length) {
-        if (resolve) resolve();
+        if (resolveFunc) resolveFunc();
       } else {
         frame++;
         requestAnimationFrame(update);
@@ -57,6 +57,10 @@ const TextScramble: React.FC<Props> = ({ text, className = '' }) => {
     };
 
     start();
+
+    return () => {
+      resolveFunc = null;
+    };
   }, [text]);
 
   return <span className={className} dangerouslySetInnerHTML={{ __html: display }} />;

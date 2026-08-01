@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import SmoothScroll from '@/components/ui/SmoothScroll'
-import AestheticBackground from '@/components/ui/AestheticBackground'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import Preloader from '@/components/ui/Preloader'
@@ -18,7 +17,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="sk">
       <body className="bg-[#030504] text-[#e0f7ec]">
         <Preloader>
-          <AestheticBackground />
           <ScrollProgress />
           <SmoothScroll>
             <Navbar />
