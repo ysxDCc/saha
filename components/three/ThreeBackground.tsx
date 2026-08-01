@@ -7,7 +7,7 @@ import * as THREE from 'three';
 const LightOrbs = () => {
   const groupRef = useRef<THREE.Group>(null);
   const count = 40;
-  
+
   const positions = useMemo(() => {
     const pos = [];
     for (let i = 0; i < count; i++) {
@@ -36,21 +36,20 @@ const LightOrbs = () => {
           <meshBasicMaterial color={p.color} transparent opacity={0.8} />
         </mesh>
       ))}
-      {/* Connecting lines */}
       {positions.map((p1, i) =>
         positions.slice(i + 1, i + 3).map((p2, j) => {
           const dist = Math.sqrt(
             (p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2 + (p1.z - p2.z) ** 2
           );
           if (dist > 2.5) return null;
+
+          const pointsArray = [p1.x, p1.y, p1.z, p2.x, p2.y, p2.z];
           return (
             <line key={`${i}-${j}`}>
               <bufferGeometry>
                 <bufferAttribute
                   attach="attributes-position"
-                  count={2}
-                  array={new Float32Array([p1.x, p1.y, p1.z, p2.x, p2.y, p2.z])}
-                  itemSize={3}
+                  args={[new Float32Array(pointsArray), 3]}
                 />
               </bufferGeometry>
               <lineBasicMaterial color="#00ffaa" transparent opacity={0.08} />
